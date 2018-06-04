@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  deploy:
+    working_directory: ~/api
+    docker:
+      - image: quipper/circleci-base
+    steps:
+      - checkout
+      - add_ssh_keys
+      - deploy:
+          command: ./script/deploy.sh
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: quipper
